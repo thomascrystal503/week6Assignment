@@ -55,15 +55,11 @@ class Deck {
         let suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
         //let ranks = {'2' : 2, '3': 3, '4': 4, '5' : 5, '6':6, '7':7, '8': 8, '9': 9, '10': 10, 'Jack': 11, 'Queen': 12, 'King': 13, 'Ace': 14}
         let ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
-        for (let j = 0; j < ranks.length; j++) {
-            for (let i = 0; i < suits.length; i++) {
-                                     
-                this.mainDeck.push(new Card(suits[i], ranks[j], j));
+        for (let i = 0; i < suits.length; i++) {
+             for (let j = 0; j < ranks.length; j++) {                    
+                this.mainDeck.push(new Card(suits[i], ranks[j], j+2));
             } 
-        }
-        return this.mainDeck;
-        // log the mainDeck for my own check
-        //console.log(this.mainDeck);        
+        }            
     }
 
     // shuffle the cards method
@@ -88,8 +84,7 @@ class Deck {
         // slice the deck and give 1st half to p1 and 2nd half to p2
         this.player1Cards = this.mainDeck.slice(0, 26);
         this.player2Cards = this.mainDeck.slice(26, 52); 
-        //tmp = this.mainDeck.slice(0,26);
-       
+            
         
         // log player1 cards and player 2 cards for my own check
         // console.log('Player 1 Cards', this.player1Cards);
@@ -129,8 +124,6 @@ class Deck {
 class Game {
     constructor () {
         this.deck = new Deck();
-        // this.player1 = [];
-        // this.player2 = [];
         this.player1Card;
         this.player2Card;
         this.p1 = new Player();
@@ -143,10 +136,11 @@ class Game {
     // deal the deck
     // play rounds
     startGame(player1, player2) {
-        
+        //console.log(this.deck)   Note to self: come back to this and see why the array in the console shows array.length = 0 BUT there are cards there      
         this.player1 = player1;
         this.player2 = player2;
         this.deck.createDeck();
+        console.log(this.deck.mainDeck)
         this.deck.shuffle();
         this.deck.deal();
         this.playHand();    
@@ -176,9 +170,9 @@ class Game {
         while (this.deck.player1Cards.length !== 0 && this.deck.player2Cards.length !== 0) {
             // pop card from player 1 and player2
             this.player1Card = this.deck.player1Cards.pop();
-            console.table(`${this.player1}'s Card`, this.player1Card);
+            console.log(`${this.player1}'s Card`, this.player1Card);
             this.player2Card = this.deck.player2Cards.pop();
-            console.table(`${this.player2}'s Card`, this.player2Card);
+            console.log(`${this.player2}'s Card`, this.player2Card);
             // for my own check for the card value
             //console.log(this.player2Card.value);
 
